@@ -1,0 +1,1914 @@
+/**
+ * Created by Administrator on 2017/6/14.
+ */
+var sentence = "the quick brown fox jumped over the lazy dog";
+/**1.
+ * 字符串.split(分隔符) 将字符串生成为数组
+ * */
+var words = sentence.split(" ");
+for (var i = 0; i < words.length; ++i) {
+    console.log("word " + i + ": " + words[i]);
+}
+/**2.
+ * 数组转字符串
+ * .join(分隔符)
+ * 数组各元素间放分隔符并连接成一个字符串
+ * join("") 就是 直接将数组个元素拼接起来生字符串
+ * .toString()连接成字符串后 默认中间会用,隔开
+ * */
+var names = ["David","Cynthia","Raymond","Clayton","Jennifer"];
+var redline=names.join(' ')
+console.log(redline);
+/**1.
+ * 数组.indexOf(参数值) 参数值是否存在于数组,
+ * 存,返第一个出现该元素的下标;
+ * 不存,返-1;
+ *
+ * 数组.lastIndexOf(参数值)
+ * 反序找第一个的下标(如果出现,否则返-1)
+ *
+ * */
+var name="Raymond";
+var position = names.indexOf(name);
+if (position >= 0) {
+    console.log("Found " + name + " at position " + position);
+}
+else {
+    console.log(name + " not found in array.");
+}
+/**
+ * 1.splice() 将现有数组进行截取,返回所截取生成出来的数组,且现有数组改变,是截取后的数组
+ * 可用于为一个数组增加或移除或修改元素
+ * 参数一:截取(删除)的起始索引(0是第一个元素)
+ * 参数二:截取(删除)的元素的个数
+ * 参数三:删除截取后要添加进数组的元素(可以是个数组)
+ * */
+
+/**2.
+ * 数组中间插入元素(放在数组里插入)
+ * */
+var nums = [1,2,3,7,8,9];
+var newElements = [4,5,6];
+nums.splice(3,0,newElements);
+console.log(nums); // 1,2,3,4,5,6,7,8,9
+
+/**3.
+ * 要插入数组的元素不必组织成一个数组， 它可以是任意的元素序列
+ * */
+var nums = [1,2,3,7,8,9];
+nums.splice(3,0,4,5,6);
+console.log(nums);
+
+/**4.
+ * 从数组中删除元素
+ * */
+var nums = [1,2,3,100,200,300,400,4,5];
+nums.splice(3,4);
+console.log(nums); // 1,2,3,4,5
+/**
+ * Created by chenhaoact on 16/8/13.
+ */
+/**
+ * 1. 数组.forEach(func) 对数组每个元素执行某操作
+ * 它接受一个函数作为参数，对数组中的每个元素使用该函数
+ * */
+function squareFunc(num) {
+    console.log(num, num * num); //打印多个字符的时候自动中间会加空格
+}
+
+var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+nums.forEach(squareFunc);
+
+/**
+ * 2. 数组.every(func)， 检查数组中每个元素是否满足某条件
+ * 它接受一个返回值为布尔类型的函数， 对数组中的每个元素使用该函数。
+ * 如果对于所有的元素，该函数均返回 true， 则该方法返回 true
+ *
+ * 数组.some(func)
+ * 是否存在一个元素满足
+ * 也接受一个返回值为布尔类型的函数， 只要有一个元素使得该函数返回 true，
+ * 该方法就返回 true
+ * */
+function isEven(num) {
+    return num % 2 == 0;
+}
+var nums = [2, 4, 6, 8, 10];
+var even = nums.every(isEven);
+if (even) {
+    console.log("all numbers are even");
+} else {
+    console.log("not all numbers are even");
+}
+
+/**
+ * 3.
+ * reduce() 数组中的各个元素累计进行操作
+ * 它接受一个函数， 返回一个值。 该方法会从一个累加值开始， 不断对累加值和
+ * 数组中的后续元素调用该函数， 直到数组中的最后一个元素， 最后返回得到的累加值。
+ * */
+
+//使用 reduce() 方法为数组中的元素求和：
+function add(runningTotal, currentValue) {
+    return runningTotal + currentValue;
+}
+var nums = [1,2,3,4,5,6,7,8,9,10];
+var sum = nums.reduce(add); //
+console.log(sum); // 显示 55
+
+//reduce() 方法也可以用来将数组中的元素连接成一个长的字符串
+function concat(accumulatedString, item) {
+    return accumulatedString + item;
+}
+var words = ["the ", "quick ","brown ", "fox "];
+var sentence = words.reduce(concat);
+console.log(sentence); // 显示 "the quick brown fox"
+
+
+/**
+ * 4.reduceRight() 方法，从右到左执行。
+ * 下面的程序使用 reduceRight() 方法将数组中的元素进行翻转：
+ * */
+function concat(accumulatedString, item) {
+    return accumulatedString + item;
+}
+var words = ["the ", "quick ","brown ", "fox "];
+var sentence = words.reduceRight(concat);
+console.log(sentence); // 显示 "fox brown quick the"
+
+/**
+ * Created by chenhaoact on 16/8/13.
+ */
+/**
+ * 1. 数组.map(func)
+ * map() 和 forEach() 有点儿像，
+ * 对数组中的每个元素使用某个函数。 两者的区别是
+ * map() 返回一个新的数组， 该数组的元素是对原有元素应用某个函数得到的结果
+ * */
+function curve(grade) {
+    return grade += 5;
+}
+var grades = [77, 65, 81, 92, 83];
+var newgrades = grades.map(curve);
+console.log(newgrades); // 82, 70, 86, 97, 88
+
+/**
+ * 2.下面是对一个字符串数组使用 map() 方法的例子：
+ * 数组 acronym 保存了数组 words 中每个元素的第一个字母。
+ * 然而， 如果想将数组显示为真正的缩略形式， 必须想办法除掉连接每个数组元素的逗号，
+ * 如果直接调用 toString() 方法， 就会显示出这个逗号。
+ * 使用 join() 方法， 为其传入一个空字符串作为参数， 则可以帮助我们解决这个问题
+ * */
+function first(word) {
+    return word[0];
+}
+var words = ["for", "your", "information"];
+var acronym = words.map(first);
+console.log(acronym)
+console.log(acronym.join("")); // 显示 "fyi"
+
+/**
+ * 3.filter() 传入一个返回值为布尔类型的函数。
+ * 和 every() 方法不同的是，
+ * 当对数组中的所有元素应用该函数，该方法并不返回 true，
+ * 而是返回一个新数组， 该数组包含应用该函数后结果为 true 的元素。
+ * */
+//下列程序筛选数组中的奇数和偶数元素
+function isEven(num) {
+    return num % 2 == 0;
+}
+
+function isOdd(num) {
+    return num % 2 != 0;
+}
+var nums = [];
+for (var i = 0; i < 20; ++i) {
+    nums[i] = i + 1;
+}
+var evens = nums.filter(isEven);
+console.log("Even numbers: ");
+console.log(evens);
+var odds = nums.filter(isOdd);
+console.log("Odd numbers: ");
+console.log(odds);
+//执行结果如下：Even numbers:2,4,6,8,10,12,14,16,18,20 Odd numbers:1,3,5,7,9,11,13,15,17,19
+
+//下面使用 filter() 筛选所有成绩及格的分数：
+function passing(num) {
+    return num >= 60;
+}
+var grades = [];
+for (var i = 0; i < 20; ++i) {
+    grades[i] = Math.floor(Math.random() * 101);
+}
+var passGrades = grades.filter(passing);
+console.log("All grades:");
+console.log(grades);
+console.log("Passing grades: ");
+console.log(passGrades);
+
+//还可以使用 filter() 方法过滤字符串数组，下面这个例子过滤掉了那些不包含“ cie” 的单词：
+function afterc(str) {
+    if (str.indexOf("cie") > -1) {
+        return true;
+    }
+    return false;
+}
+var words = ["recieve","deceive","percieve","deceit","concieve"];
+var misspelled = words.filter(afterc);
+console.log(misspelled); // 显示 recieve,percieve,concieve
+
+
+
+
+
+/**
+ * Created by chenhaoact on 16/8/13.
+ */
+/**
+ * 1.创建二维数组
+ * 比较好的方式是遵照 JavaScript: TheGood Parts（ O’Reilly） 一书第 64 页的例子，
+ * 通过扩展 JavaScript 数组对象， 为其增加了一个新方法，
+ * 该方法根据传入的参数， 设定了数组的行数、 列数和初始值
+ * */
+Array.matrix = function(numrows, numcols, initial) {
+    var arr = [];
+    for (var i = 0; i < numrows; ++i) {
+        var columns = [];
+        for (var j = 0; j < numcols; ++j) {
+            columns[j] = initial;
+        }
+        arr[i] = columns;
+    }
+    return arr;
+}
+
+//测试该生成二维数组方法的一些测试代码
+var nums = Array.matrix(5,5,0);
+console.log(nums[1][1]); // 显示 0
+var names = Array.matrix(3,3,"");
+names[1][2] = "Joe";
+console.log(names[1][2]); // display"Joe"
+
+/**
+ * 还可以仅用一行代码就创建并且使用一组初始值来初始化一个二维数组：
+ * 对于小规模的数据， 这是创建二维数组最简单的方式。
+ * */
+var grades = [[89, 77, 78],[76, 82, 81],[91, 94, 89]];
+console.log(grades[2][2]); // 显示 89
+
+
+/**
+ * 2.处理二维数组的元素
+ * 两种最基本的方式： 按行访问和按列访问
+ * */
+
+/**
+ * 按行访问:
+ * 外层循环对应行，内层循环对应列,每次对每一行的元素进行一些操作
+ *
+ * 以数组 grades 为例， 每一行对应一个学生的成绩记录。
+ * 可以将该学生的所有成绩相加， 然后除以科目数得到该学生的平均成绩。
+ * */
+var grades = [[89, 77, 78],[76, 82, 81],[91, 94, 89]];
+var total = 0;
+var average = 0.0;
+for (var row = 0; row < grades.length; ++row) {
+    for (var col = 0; col < grades[row].length; ++col) {
+        total += grades[row][col];
+    }
+
+    average = total / grades[row].length;
+    console.log("Student " + parseInt(row+1) + " average: " +
+        average.toFixed(2));
+    total = 0;
+    average = 0.0;
+}
+
+/**
+ * 按列访问:
+ * 外层循环对应列，内层循环...,每次对每一列的元素进行一些操作
+ *
+ * 下面的程序计算了一个学生各科的平均成绩,即:每一列的数据想加取平均值:
+ * */
+var grades = [[89, 77, 78],[76, 82, 81],[91, 94, 89]];
+var total = 0;
+var average = 0.0;
+for (var col = 0; col < grades.length; ++col) {
+    for (var row = 0; row < grades[col].length; ++row) {
+        total += grades[row][col];
+    }
+    verage = total / grades[col].length;
+    console.log("Test " + parseInt(col+1) + " average: " +
+        average.toFixed(2));
+    total = 0;
+    average = 0.0;
+}
+
+/**
+ * 3.参差不齐的数组
+ * 参差不齐的数组是指数组中每行的元素个数彼此不同。 有一行可能包含三个元素， 另一行
+ * 可能包含五个元素， 有些行甚至只包含一个元素。 很多编程语言在处理这种参差不齐的数
+ * 组时表现都不是很好， 但是 JavaScript 却表现良好， 因为每一行的长度是可以通过计算得到的
+ * */
+//假设数组 grades 中， 每个学生成绩记录的个数是不一样的， 不用修改代码， 依然可以正确计算出正确的平均分：
+var grades = [[89, 77],[76, 82, 81],[91, 94, 89, 99]];
+var total = 0;
+var average = 0.0;
+for (var row = 0; row < grades.length; ++row) {
+    for (var col = 0; col < grades[row].length; ++col) {
+        total += grades[row][col];
+    }
+    average = total / grades[row].length;
+    console.log("Student " + parseInt(row+1) + " average: " + average.toFixed(2));
+    total = 0;
+    average = 0.0;
+}
+
+/**
+ * 4.对象数组
+ * 对象组成的数组，数组的方法和属性对对象依然适用。
+ * */
+
+/**
+ * 注意 这里通过一个函数生成了一个对象
+ * 生成对象的函数里传入参数,然后设置
+ * this.属性 = ...
+ * this.方法 = function...
+ * 这样的函数即构造函数
+ * */
+function Point(x,y) {
+    this.x = x;
+    this.y = y;
+}
+function displayPts(arr) {
+    for (var i = 0; i < arr.length; ++i) {
+        console.log(arr[i].x + ", " + arr[i].y);
+    }
+}
+
+/**
+ * 注意 这里通过 var ... = new 构造函数(实际参数)
+ * 生成了该对象的一个实例对象
+ * */
+var p1 = new Point(1,2);
+var p2 = new Point(3,5);
+var p3 = new Point(2,8);
+var p4 = new Point(4,4);
+//对象组成的数组
+var points = [p1,p2,p3,p4];
+for (var i = 0; i < points.length; ++i) {
+    console.log("Point " + parseInt(i+1) + ": " + points[i].x + ", " + points[i].y);
+}
+var p5 = new Point(12,-3);
+//使用 push() 方法将点 (12, -3) 添加进数组， 使用 shift() 方法将点 (1, 2) 从数组中移除。
+points.push(p5);
+console.log("After push: ");
+displayPts(points);
+points.shift();
+console.log("After shift: ");
+displayPts(points);
+
+/**
+ * 5.对象中的数组
+ * 在对象中， 可以使用数组存储复杂的数据。
+ * 实际算法应用与解决方案中,
+ * 很多数据都被实现成一个对象，
+ * 对象内部使用数组保存数据。
+ *
+ * 下例中， 创建了一个对象， 用于保存观测到的周最高气温。
+ * 该对象有两个方法， 一个方法用来增加一条新的气温记录，
+ * 另外一个方法用来计算存储在对象中的平均气温
+ *
+ * 很实用和常用的技巧!!!
+ * */
+
+//对象构造函数
+function weekTemps() {
+    this.dataStore = []; //对象构造函数里 设置某些属性为一个数组存储比较复杂的数据
+    this.add = add; //设置对象的方法
+    this.average = average;
+}
+
+//定义对象方法的操作,里面使用this.属性名 代表对象的某属性
+function add(temp) {
+    weekTemps.call(this);
+    this.dataStore.push(temp);  //对对象的数组型数据进行数组式操作
+}
+function average() {
+    weekTemps.call(this);
+    var total = 0;
+    for (var i = 0; i < this.dataStore.length; ++i) {
+        total += this.dataStore[i];
+    }
+    return total / this.dataStore.length;
+}
+var thisWeek = new weekTemps();
+thisWeek.add(52);
+thisWeek.add(55);
+thisWeek.add(61);
+thisWeek.add(65);
+thisWeek.add(55);
+thisWeek.add(50);
+thisWeek.add(52);
+thisWeek.add(49);
+console.log(thisWeek.average()); // 显示 54.875
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Created by chenhaoact on 16/8/14.
+ */
+/**
+ * 1.列表抽象数据类型
+ * 列表是一组有序的数据。 每个列表中的数据项称为元素。
+ * 在 JavaScript 中， 列表中的元素可以是任意数据类型。 列表中可以保存多少元素并没有事先限定,实际中受内存限制
+ *
+ * 适用于:
+ * 列表中保存的元素不是太多时。 当不需要在一个很长的序列中查找元素， 或者对其进行排序时， 列表显得尤为有用。
+ * 反之， 如果数据结构非常复杂， 列表的作用就没有那么大了。
+ *
+ * 如果存储的顺序不重要(顺序重要的话可以考虑如堆栈等)， 也不必对数据进行查找， 那么列表就是一种再好不过的
+ * 数据结构。 对于其他一些应用， 列表就显得太过简陋了
+ *
+ *
+ * 属性与方法:
+ * listSize（ 属性） 列表的元素个数,最后一个元素的位置下标是 listSize - 1
+ * pos（ 属性） 列表的当前位置
+ * length（ 属性） 返回列表中元素的个数
+ * clear（ 方法） 清空列表中的所有元素
+ * listToString（ 方法） 返回列表的字符串形式,这里不适用toString() 不去覆盖原生的toString()
+ * getElement（ 方法） 返回当前位置的元素
+ * insert（ 方法） 在现有元素后插入新元素
+ * append（ 方法） 在列表的末尾添加新元素
+ * remove（ 方法） 从列表中删除元素
+ * front（ 方法） 将列表的当前位置设移动到第一个元素
+ * end（ 方法） 将列表的当前位置移动到最后一个元素
+ * prev（ 方法） 将当前位置后移一位
+ * next（ 方法） 将当前位置前移一位
+ * currPos（ 方法） 返回列表的当前位置
+ * moveTo（ 方法） 将当前位置移动到指定位置
+ * */
+
+/**
+ * 2.实现列表类,定义构造函数
+ * 注意这里定义的删除查找等方法都是传入一整个元素的值,列表由一系列元素组成,元素即最小的那个单元
+ * */
+function List() {
+    this.listSize = 0; //listSize是属性
+    this.pos = 0;
+    this.dataStore = []; // 初始化一个空数组来保存列表元素,即底层数据结构是数组
+    this.clear = clear;
+    this.find = find;
+    this.listToString = listToString;
+    this.insert = insert;
+    this.append = append;
+    this.remove = remove;
+    this.front = front;
+    this.end = end;
+    this.prev = prev;
+    this.next = next;
+    this.length = length; //length是方法
+    this.currPos = currPos;
+    this.moveTo = moveTo;
+    this.getElement = getElement;
+    this.length = length;
+    this.contains = contains;
+}
+
+/**
+ * 3. append()
+ * 该方法给列表的下一个位置增加一个新的元素，
+ * 这个位置刚好等于变量 listSize 的值,新元素就位后， 变量 listSize 加 1,
+ * []访问的时候元素个数直接就++了
+ * */
+function append(element) {
+    this.dataStore[this.listSize++] = element;
+}
+
+/**
+ * 4. find()
+ * find() 方法通过对数组对象 dataStore 进行迭代，查找给定的元素。
+ * 如果找到，就返回该元素在列表中的位置，否则返回 -1，这是在数组中找不到指定元素时返回的标准值
+ * */
+function find(element) {
+    for (var i = 0; i < this.dataStore.length; ++i) {
+        if (this.dataStore[i] == element) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+/**
+ * 5. remove()
+ * 需要在列表中找到该元素， 然后删除它， 并且调整底层的数组对象以填补删除该元素后留下的空白。
+ * js中可以使用 splice() 方法简化这一过程。
+ *
+ * remove() 方法使用 find() 方法返回的位置对数组 dataStore 进行截取。 数组改变后， 将变
+ * 量 listSize 的值减 1， 以反映列表的最新长度。 如果元素删除成功， 该方法返回 true，
+ * 否则返回 false。
+ * */
+function remove(element) {
+    var foundAt = this.find(element);
+    if (foundAt > -1) {
+        this.dataStore.splice(foundAt, 1);
+        --this.listSize;
+        return true;
+    }
+    return false;
+}
+
+/**
+ * 6. length()
+ * 返回列表中元素的个数
+ * */
+function length() {
+    return this.listSize;
+}
+
+/**
+ * 7. listToString() 显示列表中的元素,
+ * 该方法返回的是一个数组， 而不是一个字符串， 但它的目的是为了显示列表的
+ * 当前状态， 因此返回一个数组就足够了。
+ * */
+function listToString() {
+    return this.dataStore;
+}
+
+/**
+ * 8. insert() 向列表中插入一个元素
+ * insert() 方法需要知道将元素插入到什么位置，
+ * 假设插入是指插入到列表中某个元素之后.
+ *
+ * insert() 方法用到了 find() 方法， find() 方法会寻找传入的 after 参数在列
+ * 表中的位置， 找到该位置后， 使用 splice() 方法将新元素插入该位置之后， 然后将变量
+ * listSize 加 1 并返回 true， 表明插入成功。
+ * */
+function insert(element, after) {
+    var insertPos = this.find(after);
+    if (insertPos > -1) {
+        this.dataStore.splice(insertPos + 1, 0, element);
+        ++this.listSize;
+        return true;
+    }
+    return false;
+}
+
+/**
+ * 9. clear() 清空列表中所有的元素
+ * clear() 方法使用 delete 操作符删除数组 dataStore， 接着在下一行创建一个空数组。 最
+ * 后一行将 listSize 和 pos 的值设为 1， 表明这是一个新的空列表
+ * */
+function clear() {
+    delete this.dataStore;
+    this.dataStore = [];
+    this.listSize = this.pos = 0;
+}
+
+/**
+ * 10. contains() 判断给定值是否在列表中
+ * */
+function contains(element) {
+    for (var i = 0; i < this.dataStore.length; ++i) {
+        if (this.dataStore[i] == element) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * 11. 下面的方法都是通过控制当前位置 pos 和 listSize 来实现的
+ * */
+
+//当前位置移动到首元素
+function front() {
+    this.pos = 0;
+}
+
+//当前位置移动到尾元素
+function end() {
+    this.pos = this.listSize - 1;
+}
+
+//当前位置向前移动一位
+function prev() {
+    if (this.pos > 0) {
+        --this.pos;
+    }
+}
+
+//当前位置向后移动一位
+function next() {
+    if (this.pos < this.listSize - 1) {
+        ++this.pos;
+    }
+}
+
+//获得当前位置
+function currPos() {
+    return this.pos;
+}
+
+//当前位置移动移动到某个位置(传入的是位置数字,从零开始)
+function moveTo(position) {
+    this.pos = position;
+}
+
+/**
+ * 12. getElement() 返回列表的当前元素
+ * */
+function getElement() {
+    return this.dataStore[this.pos];
+}
+
+/**
+ * 13. 应用1: 创建一个由姓名组成的列表，来展示怎么使用这些方法
+ * */
+//创建一个列表实例对象
+var names = new List();
+names.append("Clayton");
+names.append("Raymond");
+names.append("Cynthia");
+names.append("Jennifer");
+names.append("Bryan");
+names.append("Danny");
+
+//现在移动到列表中的第一个元素并且显示它：
+names.front();
+console.log(names.getElement()); // 显示 Clayton
+
+//接下来向后移动一个单位并且显示它：
+names.next();
+console.log(names.getElement()); // 显示 Raymond
+
+//先向前移动两次， 然后向后移动一次， 显示出当前元素， 看看 prev() 方法的应用
+names.next();
+names.next();
+names.prev();
+console.log(names.getElement()); // 显示 Cynthia
+
+/**
+ * !遍历!
+ * 由前向后遍历列表:
+ * 在 for 循环的一开始， 将列表的当前位置设置为第一个元素。 只要 currPos 的值小于列表
+ * 的长度-1 (因为pos是从0开始的,比较完之后才会移动next() )， 就一直循环， 每一次循环都调用 next() 方法将当前位置向前移动一位。
+ * */
+//这里用names.pos++比较好,因为next() pos永远到不了names.length(),会一直循环
+for (names.front(); names.currPos() < names.length(); names.pos++) {
+    console.log(names.getElement());
+    //console.log(names.currPos());
+}
+//但注意经过上面的遍历操作,pos指向的是最后一位+1,所以要 -1一次
+names.pos -= 1;
+
+/**
+ * 从后向前遍历列表
+ * 循环从列表的最后一个元素开始， 当当前位置大于或等于 0 时， 调用 prev() 方法后移一位。
+ *
+ * 迭代器只是用来在列表上随意移动， 而不应该和任何为列表增加或删除元素的方法一起使用
+ * */
+//这里用names.pos--比较好,因为pre() pos永远到0就不会降了,会一直循环
+for(names.end(); names.currPos() >= 0; names.pos--) {
+    console.log(names.getElement());
+}
+//但注意经过上面的遍历操作,pos指向的是-1,所以要 +1一次
+names.pos += 1;
+
+
+
+
+
+
+
+
+
+
+/**
+ * Created by chenhaoact on 16/8/14.
+ */
+/**
+ * 1.栈是一种高效的数据结构， 因为数据只能在栈顶添加或删除， 所以这样的操作很快
+ * 栈是一种特殊的列表， 栈内的元素只能通过列表的一端访问， 这一端称为栈顶。
+ * 一摞盘子是现实世界中常见的栈的例子.
+ * 栈具有后入先出的特点， 所以任何不在栈顶的元素都无法访问。
+ * 为了得到栈底的元素， 必须先拿掉上面的元素。
+ *
+ * 属性:
+ * top  栈数组的第一个空位置 = 栈顶元素的位置+1 ,top处是空的,它处于栈顶元素之上  (top从0开始,0代表在栈底,及栈是空的)，同时也为了标记哪里可以加入新元素，当向栈内压入元素时， 该变量增大
+ * 即:第 栈顶元素的 数组下标是 top - 1
+ * empty 栈内是否含有元素,用 length 属性也可以达到同样的目的
+ *
+ * 方法:
+ * push() 元素入栈，
+ * pop() 元素出栈,(也可以访问栈顶的元素，但是调用该方法后，栈顶元素被删除)
+ * peek() 预览栈顶元素,只返回栈顶元素，不删除它。
+ * length() 返回栈内元素的个数(top应该是等于数组的length的,所以用top属性也可)
+ * clear() 清除栈内所有元素
+ * */
+//栈类的构造函数
+function Stack() {
+    this.dataStore = []; //底层数据结构是数组
+    this.top = 0; //top应该是等于数组的length的
+    this.push = push;
+    this.pop = pop;
+    this.peek = peek;
+    this.length = length;
+    this.clear = clear;
+}
+
+/**
+ * 2. push()
+ * 向栈中压入一个新元素， 需要将其保存在数组中变量 top 所对
+ * 应的位置， 然后将 top 值加 1， 让top指向数组中下一个空位置
+ * 特别注意 ++ 操作符的位置， 它放在 this.top 的后面， 这样新入栈的元素就被放在
+ * top 的当前值对应的位置， 然后再将变量 top 的值加 1， 指向下一个位置
+ * */
+function push(element) {
+    this.dataStore[this.top++] = element;
+}
+
+/**
+ * 3. pop()
+ * pop() 方法恰好与 push() 方法相反——它返回栈顶元素， 同时将变量 top 的值减 1
+ * 也可以改造一下,只--this.top,不返回栈顶元素
+ * */
+function pop() {
+    return this.dataStore[--this.top];
+}
+
+/**
+ * 4. peek()
+ * peek() 方法返回数组的第 top-1 个位置的元素， 即栈顶元素
+ * */
+function peek() {
+    return this.dataStore[this.top-1];
+}
+
+function length(){
+    return this.top;
+}
+
+function clear() {
+    this.top = 0;
+}
+
+/**
+ * 5.测试 Stack 类的实现
+ * */
+var s = new Stack();
+s.push("David");
+s.push("Raymond");
+s.push("Bryan");
+console.log("length: " + s.length());
+console.log(s.peek());
+var popped = s.pop();
+console.log("The popped element is: " + popped);
+console.log(s.peek());
+s.push("Cynthia");
+console.log(s.peek());
+s.clear();
+console.log("length: " + s.length());
+console.log(s.peek());
+s.push("Clayton");
+console.log(s.peek());
+
+/**
+ * 6.栈的应用一:数字进制间的相互转换
+ *
+ * 利用栈将一个数字从一种数制转换成另一种数制。
+ * 假设想将数字 n 转换为以 b 为基数
+ * 的数字， 实现转换的算法如下:
+ * (1) 最高位为 n % b， 将此位压入栈。
+ * (2) 使用 n/b 代替 n。
+ * (3) 重复步骤 1 和 2， 直到 n 等于 0， 且没有余数。
+ * (4) 持续将栈内元素弹出， 直到栈为空， 依次将这些元素排列， 就得到转换后数字的字符
+ * 串形式。
+ *
+ * 下面就是该函数的定义， 可以将十进制的数字转化为二至九进制的数字：
+ * */
+function mulBase(num, base) {
+    var s = new Stack();
+    do {
+        s.push(num % base);
+        num = Math.floor(num /= base);
+    } while (num > 0);
+    var converted = "";
+    while (s.length() > 0) {
+        converted += s.pop();
+    }
+    return converted;
+}
+
+//将数字转换为二进制和八进制
+function mulBase(num, base) {
+    var s = new Stack();
+    do {
+        s.push(num % base);
+        num = Math.floor(num /= base);
+    } while (num > 0);
+    var converted = "";
+    while (s.length() > 0) {
+        converted += s.pop();
+    }
+    return converted;
+}
+var num = 32;
+var base = 2;
+var newNum = mulBase(num, base);
+console.log(num + " converted to base " + base + " is " + newNum);
+num = 125;
+base = 8;
+var newNum = mulBase(num, base);
+console.log(num + " converted to base " + base + " is " + newNum);
+//输出: 32 converted to base 2 is 100000  125 converted to base 8 is 175
+
+// ToDo: 而二进制转10进制和16进制怎么转?
+
+/**
+ * 7.栈的应用二: 回文
+ * 使用栈，可以轻松判断一个字符串是否是回文。 将拿到的字符串的每个字符按从左至
+ * 右的顺序压入栈。 当字符串中的字符都入栈后， 栈内就保存了一个反转后的字符串， 最后
+ * 的字符在栈顶， 第一个字符在栈底.
+ *
+ * 字符串完整压入栈内后， 通过持续弹出栈中的每个字母就可以得到一个新字符串， 该字符
+ * 串刚好与原来的字符串顺序相反。 我们只需要比较这两个字符串即可， 如果它们相等， 就
+ * 是一个回文。
+ * */
+//下例是一个利用前面定义的 Stack 类， 判断给定字符串是否是回文的程序。
+function isPalindrome(word) {
+    var s = new Stack();
+    for (var i = 0; i < word.length; ++i) {
+        s.push(word[i]);
+    }
+    var rword = "";
+    while (s.length() > 0) {
+        rword += s.pop();
+    }
+    if (word == rword) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+var word = "hello";
+if (isPalindrome(word)) {
+    console.log(word + " is a palindrome.");
+}
+else {
+    console.log(word + " is not a palindrome.");
+}
+word = "racecar"
+if (isPalindrome(word)) {
+    console.log(word + " is a palindrome.");
+}
+else {
+    console.log(word + " is not a palindrome.");
+}
+
+/**
+ * 8.递归与使用栈模拟递归过程
+ * 栈常常被用来实现编程语言， 使用栈实现递归即为一例
+ * */
+//斐波那契递归
+function factorial(n) {
+    if (n === 0) {
+        return 1;
+    }
+    else {
+        return n * factorial(n-1);
+    }
+}
+
+console.log(factorial(5));
+
+//使用栈模拟上面的递归
+function fact(n) {
+    var s = new Stack();
+    while (n > 1) {
+        s.push(n--);
+    }
+    var product = 1;
+    while (s.length() > 0) {
+        product *= s.pop();
+    }
+    return product;
+}
+console.log(fact(5));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Created by chenhaoact on 16/8/14.
+ */
+/**
+ * 1. 队列
+ * 队列是一种列表，只能在队尾插入元素，在队首删除元素。
+ * 队列用于存储按顺序排列的数据， 先进先出， 先进队列的元素优先处理。
+ * 可以将队列想象成在银行前排队的人群.
+ * 队列被用在很多地方， 比如:
+ * 提交操作系统执行的一系列进程、 打印任务池等， 一些仿真系统用队列来模拟银行或杂货
+ * 店里排队的顾客。
+ *
+ * 属性:
+ * 没有自定义属性,直接使用的是数组的一些属性,如:length
+ *
+ * 方法:
+ * enqueue() 向队尾添加一个元素
+ * dequeue() 删除队首元素
+ * front() 读取队首元素
+ * back() 读取队尾元素
+ * queueToString() 方法显示队列内的所有元素
+ * empty() 判断队列是否为空
+ *
+ * */
+//队列类的构造函数
+function Queue() {
+    this.dataStore = []; //使用数组作为底层数据对象
+    this.enqueue = enqueue;
+    this.dequeue = dequeue;
+    this.front = front;
+    this.back = back;
+    this.queueToString = queueToString;
+    this.empty = empty;
+}
+
+/**
+ * 2. enqueue(element) 向队尾添加一个元素,借助push
+ * */
+function enqueue(element) {
+    this.dataStore.push(element);
+}
+
+/**
+ * 3. dequeue() 删除队首的元素,借助shift
+ * */
+function dequeue() {
+    return this.dataStore.shift();
+}
+
+/**
+ * 4. front() 读取队首元素
+ * */
+function front() {
+    return this.dataStore[0];
+}
+
+/**
+ * 5. back() 读取队尾元素
+ * */
+function back() {
+    return this.dataStore[this.dataStore.length-1];
+}
+
+/**
+ * 6. queueToString() 方法显示队列内的所有元素：
+ * */
+function queueToString() {
+    var retStr = "";
+    for (var i = 0; i < this.dataStore.length; ++i) {
+        retStr += this.dataStore[i] + "\n";
+    }
+    return retStr;
+}
+
+/**
+ * 7. empty() 判断队列是否为空
+ * */
+function empty() {
+    if (this.dataStore.length == 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+// 测试程序
+var q = new Queue();
+q.enqueue("Meredith");
+q.enqueue("Cynthia");
+q.enqueue("Jennifer");
+console.log(q.queueToString());
+q.dequeue();
+console.log(q.queueToString());
+console.log("Front of queue: " + q.front());
+console.log("Back of queue: " + q.back());
+
+
+
+
+/**
+ * Created by chenhaoact on 16/8/16.
+ */
+/**
+ * 1.
+ * 双向链表:
+ *
+ * 新增:
+ * 给 Node 对象增加一个属性:
+ * previous
+ *
+ * 从后向前遍历则就容易多了
+ * 此时向链表插入一个节点需要更多的工作， 需要指出该节点正确的前驱和后继。
+ * 但是在从链表中删除节点时， 效率提高了，不需要再查找待删除节点的前驱节点
+ *
+ * 比单向链表新增方法:
+ * findLast() 找出了链表中的最后一个节点
+ * dispReverse() 反序显示双向链表中的元素
+ *
+ * 原有:
+ * find() 在列表中查找给定的值;
+ * insert() 插入删除节点;
+ * findPrevious() 寻找待删除节点的前一个节点
+ * remove()
+ * display()
+ *
+ * 属性:
+ * 使用一个 Node 对象来保存该链表的头节点
+ * 头结点是一直不包含数据的,它只起指向下一个节点的作用
+ *
+ * !! 一般建议使用双向链表,功能性更强 !!
+ * */
+
+/* Todo 待自己实现方法:
+ * advance(n) 方法， 使当前节点向前移动 n 个节点。
+ * back(n) 方法， 使当前节点向后移动 n 个节点。
+ * show() 方法， 只显示当前节点上的数据。
+ */
+
+/**
+ * 2.
+ * 为单向链表的 Node 类增加一个 previous 属性
+ * */
+function Node(element) {
+    this.element = element;
+    this.next = null;
+    this.previous = null;
+}
+
+function LList() {
+    this.head = new Node("head");
+    this.find = find;
+    this.insert = insert;
+    this.display = display;
+    this.remove = remove;
+    this.findLast = findLast;
+    this.dispReverse = dispReverse;
+}
+
+/**
+ * 3.双向链表的 insert() 方法和单向链表的类似，
+ * 但是需要设置新节点的 previous 属性， 使其指向该节点的前驱节点
+ * */
+function insert(newElement, item) {
+    var newNode = new Node(newElement);
+    var current = this.find(item);
+    newNode.next = current.next;
+    newNode.previous = current;
+    current.next = newNode;
+}
+
+/**
+ * 4.双向链表的 remove() 方法比单向链表的效率更高
+ * 首先需要在链表中找出存储待删除数据的节点， 然后设置该节点前驱的 next 属性， 使其指向待删
+ * 除节点的后继； 设置该节点后继的 previous 属性， 使其指向待删除节点的前驱
+ * */
+function remove(item) {
+    var currNode = this.find(item);
+    if (!(currNode.next == null)) {
+        currNode.previous.next = currNode.next;
+        currNode.next.previous = currNode.previous;
+        currNode.next = null;
+        currNode.previous = null;
+    }
+}
+
+/**
+ * 5. findLast()
+ * 为了完成以反序显示链表中元素这类任务， 需要给双向链表增加一个工具方法， 用来查找
+ * 最后的节点。 findLast() 方法找出了链表中的最后一个节点， 同时免除了从前往后遍历链
+ * 表之苦
+ * */
+function findLast() {
+    var currNode = this.head;
+    while (!(currNode.next == null)) {
+        currNode = currNode.next;
+    }
+    return currNode;
+}
+
+/**
+ * 6. dispReverse() 反序显示双向链表中的元素
+ * */
+function dispReverse() {
+    var currNode = this.head;
+    currNode = this.findLast();
+    while (!(currNode.previous == null)) {
+        console.log(currNode.element);
+        currNode = currNode.previous;
+    }
+}
+
+/**
+ * 7.原来的display(),find(),insert()进行相应的修改
+ * */
+function display() {
+    var currNode = this.head;
+    while (!(currNode.next == null)) {
+        console.log(currNode.next.element);
+        currNode = currNode.next;
+    }
+}
+
+function find(item) {
+    var currNode = this.head;
+    while (currNode.element != item) {
+        currNode = currNode.next;
+    }
+    return currNode;
+}
+
+function insert(newElement, item) {
+    var newNode = new Node(newElement);
+    var current = this.find(item);
+    newNode.next = current.next;
+    newNode.previous = current;
+    current.next = newNode;
+}
+
+/**
+ * 8. 测试一
+ * */
+var cities = new LList();
+cities.insert("Conway", "head");
+cities.insert("Russellville", "Conway");
+cities.insert("Carlisle", "Russellville");
+cities.insert("Alma", "Carlisle");
+cities.display();
+console.log();
+cities.remove("Carlisle");
+cities.display();
+console.log();
+cities.dispReverse();
+
+/*
+ 输出:
+ Conway
+ Russellville
+ Carlisle
+ Alma
+ Conway
+ Russellville
+ Alma
+ Alma
+ Russellville
+ Conway
+ * */
+
+
+
+
+/**
+ * Created by chenhaoact on 16/8/16.
+ */
+/**
+ * 1.字典
+ * 一种以键 - 值对形式存储数据的数据结构，
+ * 键是指你用来查找的东西， 值是查找得到的结果
+ *
+ * 适用:
+ * 电话本,!!按键值对进行存储查询的结构!!,因为C++中没有固定的按键值对查询的结构(js有对象),
+ * 所以遇到这种情况要用 字典结构,
+ * 再如:存储一段文本中各个单词出现的次数。该程序显示每个单词出现的次数，
+ * 但每个单词只显示一次(只显示一次可以用作字典,因为字典里的键也是不能重复出现的)
+ *
+ * add 新增一个键值对
+ * find 以键作为参数， 返回和其关联的值
+ * remove 删除一个键 - 值对
+ * showAll 显示字典中所有的键 - 值对
+ * count 得到字典中的元素个数
+ * clear 清空所有键值对
+ * showAllBySortKey 按键排序后显示字典所有键值对的
+ * */
+function Dictionary() {
+    this.add = add;
+    /*2.适用数组作为基础数据类型,本质也是对象*/
+    this.datastore = new Array();
+    this.find = find;
+    this.remove = remove;
+    this.showAll = showAll;
+    this.count = count;
+    this.clear = clear;
+    this.showAllBySortKey = showAllBySortKey;
+}
+
+/**
+ * 3. add(key,value)
+ * 新增一个键值对
+ * 接受两个参数： 键和值。 键是值在字典中的索引。
+ * */
+function add(key, value) {
+    this.datastore[key] = value;
+}
+
+/**
+ * 4. find(key)
+ * 以键作为参数， 返回和其关联的值
+ * */
+function find(key) {
+    return this.datastore[key];
+}
+
+/**
+ * 5. remove(key)
+ * 删除一个键 - 值对,需要使用 JavaScript 中的一个内置函数： delete。 该函数是 Object
+ * 类的一部分， 使用对键的引用作为参数。 该函数同时删掉键和与其关联的值
+ * */
+function remove(key) {
+    delete this.datastore[key];
+}
+
+/**
+ * 6. showAll()
+ * 显示字典中所有的键 - 值对
+ * */
+function showAll() {
+    /**
+     * 7. 可以调用 Object 类的 keys() 方法返回传入参数中存储的所有键组成的数组,
+     * 这里不需要,
+     *
+     * 因为for in 循环 的:
+     * for(var i in 数组/对象){...}
+     * i 直接就是 数组下标 或者 对象的属性名(及字典的键名)
+     * */
+    for(var key in this.datastore) {
+        console.log(key + " -> " + this.datastore[key]);
+    }
+
+}
+
+/**
+ * 7.
+ * count
+ * 得到字典中的元素个数
+ *
+ * !不能使用 length 属性, 因为当键的类型为字符串时， length 属性就不管用了!
+ * */
+function count() {
+    var n = 0;
+    for(var key in Object.keys(this.datastore)) {
+        ++n;
+    }
+    return n;
+}
+
+/**
+ * 8. clear()
+ * 清空所有键值对
+ * 定义如下：
+ * */
+function clear() {
+    for (var key in Object.keys(this.datastore)) {
+        delete this.datastore[key];
+    }
+}
+
+/**
+ * 9. 字典的主要用途是通过键取值， 我们无须太关心数据在字典中的实际存储顺序。 然而， 很
+ * 多人都希望看到一个有序的字典.
+ *
+ * 下面是 按键排序后显示字典所有键值对的
+ * showAllBySortKey()
+ *
+ * 这里排序的时候,i就是 1234 , 因为 in 后边是 键组成的数组
+ * */
+function showAllBySortKey() {
+    for(var i in Object.keys(this.datastore).sort()) {
+        //console.log(Object.keys(this.datastore).sort())
+        //从排序过的通过i得到排序序列对应的key值
+        var key = Object.keys(this.datastore).sort()[i];
+        console.log(key + " -> " + this.datastore[key]);
+    }
+}
+
+
+//使用 Dictionary 类
+//load("Dictionary.js");
+var pbook = new Dictionary();
+pbook.add("Mike","123");
+pbook.add("David", "345");
+pbook.add("Cynthia", "456");
+console.log("David's extension: " + pbook.find("David"));
+//pbook.remove("David");
+//console.log("Number of entries: " + pbook.count());
+pbook.showAll();
+pbook.showAllBySortKey();
+pbook.clear();
+console.log("Number of entries: " + pbook.count());
+pbook.showAll();
+
+/**
+ * Created by chenhaoact on 16/8/16.
+ */
+/**
+ * 1.
+ * 散列
+ * 散列是一种常用的数据存储技术，散列使用的数据结构叫做散列表。
+ * 在散列表上插入、 删除和取用数据都非常快，
+ * 但是对于查找操作来说却效率低下， 比如查找最大最小值。 得求助于其他数据结构， 二叉查找树是一个很好的选择
+ *
+ * 散列表
+ * 散列表是基于数组进行设计的
+ * 使用散列表存储数据时， 通过一个 散列函数 将 键映射为一个数字(作为唯一的数组索引),
+ * 这个数字的范围是 0 到散列表的长度
+ *
+ * 即使用一个高效的散列函数， 仍然存在将两个键映射成同一个值的可能， 这称为碰撞
+ *
+ * 散列表中的数组大小常见的限制是： 数组长度应该是一个质数
+ * */
+
+/**
+ * 2.
+ *
+ * */
+function HashTable() {
+    this.table = new Array(137);
+    this.simpleHash = simpleHash;
+    this.betterHash = betterHash;
+    this.showDistro = showDistro;
+    this.put = put;
+    //this.get = get;
+}
+
+/**
+ * 3.
+ * */
+function put(data) {
+    /** 6.
+     * put() 方法现在使用了新的散列函数 betterHash()， 而不是原来的 simpleHash()。
+     * */
+        //var pos = this.simpleHash(data);
+    var pos = this.betterHash(data);
+    this.table[pos] = data;
+}
+
+/** 4.
+ * 使用ASCII 码值想加作为键的散列函数,容易产生碰撞
+ * */
+function simpleHash(data) {
+    var total = 0;
+    for (var i = 0; i < data.length; ++i) {
+        total += data.charCodeAt(i);
+    }
+    return total % this.table.length;
+}
+
+/**5.
+ * 使用霍纳算法优化的散列函数
+ * 仍然先计算字符串中各字符的 ASCII 码值， 不过求和时每次要乘以一个质数。
+ * 大多数算法书建议使用一个较小的质数， 比如 31， 但是对于我们的数据集， 31 不起作用，
+ * 我们使用 37， 这样刚好不会产生碰撞
+ * */
+function betterHash(string) {
+    const H = 37;
+    var total = 0;
+    for (var i = 0; i < string.length; ++i) {
+        total += H * total + string.charCodeAt(i);
+    }
+
+    total = total % this.table.length;
+
+    if (total < 0) {
+        total += this.table.length-1;
+    }
+
+    return parseInt(total);
+}
+
+function showDistro() {
+    var n = 0;
+    for (var i = 0; i < this.table.length; ++i) {
+        if (this.table[i] != undefined) {
+            console.log(i + ": " + this.table[i]);
+        }
+    }
+}
+
+
+//测试
+var someNames = ["David", "Jennifer", "Donnie", "Raymond",
+    "Cynthia", "Mike", "Clayton", "Danny", "Jonathan"];
+var hTable = new HashTable();
+for (var i = 0; i < someNames.length; ++i) {
+    hTable.put(someNames[i]);
+}
+hTable.showDistro();
+
+
+/**
+ * Created by chenhaoact on 16/8/17.
+ */
+/**
+ * 1.树
+ * 树是一种非线性的数据结构， 以分层的方式存储数据。
+ *
+ * 适用于:
+ * 树被用来存储具有层级关系的数据， 比如文件系统中的文件；
+ * 树还被用来存储有序列表。
+ * 公司组织结构图
+ *
+ * 优势:
+ * 选择树而不是那些基本的数据结构， 是因为:
+ * 二叉树上进行查找非常快（ 链表上查找较慢），
+ * 二叉树添加或删除元素也非常快（ 数组执行添加或删除较慢）
+ *
+ * 基本概念:
+ * 树由一组以边连接的节点组成
+ * 叶子节点:没有任何子节点的节点
+ * 从一个节点到另一个节点的这一组 边 称为路径
+ * 树可以分为几个层次， 根节点是第 0 层， 它的子节点是第 1 层，树的层数就是树的深度
+ * 树的遍历:以某种特定顺序访问树中 所有的节点
+ * 每个节点都有一个与之相关的值， 该值有时被称为键,(同时每个节点还可以保存数据)
+ * */
+
+/**
+ * 2.二叉树
+ * 二叉树是一种特殊的树， 它的子节点个数不超过两个
+ * */
+
+/**
+ * 3.实现二叉查找树(BST)
+ * */
+
+/**
+ * 4.先定义节点类
+ * Node 对象既保存数据， 也保存和其他节点的链接（ left 和 right）
+ * show() 显示保存在节点中的数据
+ * node.left 和 node.right分别对应着左子和右子节点,插入函数中会根据它们的值将节点插入到合适的位置
+ * */
+function Node(data, left, right) {
+    this.data = data;
+    this.left = left;
+    this.right = right;
+    this.show = show;
+}
+
+function show() {
+    return this.data;
+}
+
+/**
+ * 5.定义二叉查找树（ BST）类
+ * insert
+ *
+ * */
+function BST() {
+    /*初始化根节点为null*/
+    this.root = null;
+    this.insert = insert;
+    this.inOrder = inOrder;
+    this.preOrder = preOrder;
+    this.postOrder = postOrder;
+    this.getMax = getMax;
+    this.getMin = getMin;
+    this.find = find;
+}
+
+/**
+ * 向树中加入新节点。
+ * 首先创建一个 Node 对象， 将数据传入该对象保存。
+ *
+ * 其次检查 BST 是否有根节点，
+ * 如果没有， 那是新树， 该节点就是根节点，到此完成了；
+ * 如果待插入节点不是根节点， 那就要遍历 BST， 找到插入的适当位置。
+ * 该过程类似于遍历链表:
+ * 用一个变量存储当前节点， 一层层地遍历 BST。
+ * 进入 BST 以后，找到正确的节点插入点， 再跳出循环。
+ *
+ * 查找正确插入点的算法如下。
+ * (1) 设根节点为当前节点。
+ * (2) 如果待插入节点保存的数据小于当前节点， 则设新的当前节点为原节点的左节点； 反之， 执行第 4 步。
+ * (3) 如果当前节点的左节点为 null， 就将新的节点插入这个位置， 退出循环； 反之， 继续执行下一次循环。
+ * (4) 设新的当前节点为原节点的右节点。
+ * (5) 如果当前节点的右节点为 null， 就将新的节点插入这个位置， 退出循环； 反之， 继续执行下一次循环。
+ * */
+function insert(data) {
+    var n = new Node(data, null, null);
+    if (this.root == null) {
+        this.root = n;
+    }
+    else {
+        var current = this.root;
+        var parent;
+        while (true) {
+            parent = current;
+            if (data < current.data) {
+                current = current.left;
+                if (current == null) {
+                    parent.left = n;
+                    break;
+                }
+            }
+            else {
+                current = current.right;
+                if (current == null) {
+                    parent.right = n;
+                    break;
+                }
+            }
+        }
+    }
+}
+
+/**
+ * 遍历
+ * 有三种遍历 BST 的方式： 中序、 先序和后序。
+ * 中序遍历按照节点上的键值， 以 升序访问 BST 上的所有节点。
+ * 先序遍历 先访问根节点 ， 然后以同样方式访问左子树和右子树。
+ * 后序遍历先访问叶子节点， 从左子树到右子树， 再到根节点。
+ *
+ * 三个遍历都接受一个参数,是当前要遍历树或子树的根节点
+ *
+ * inOrder() 和 preOrder() 方法的唯一区别， 就是 if 语句中代码的顺序。 在 inOrder()
+ * 方法中， show() 函数像三明治一样夹在两个递归调用之间； 在 preOrder() 方法中， show()
+ * 函数放在两个递归调用之前。
+ * */
+function inOrder(node) {
+    if (!(node == null)) {
+        inOrder(node.left);
+        putstr(node.show() + " ");
+        inOrder(node.right);
+    }
+}
+
+function preOrder(node) {
+    if (!(node == null)) {
+        putstr(node.show() + " ");
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+}
+
+function postOrder(node) {
+    if (!(node == null)) {
+        postOrder(node.left);
+        postOrder(node.right);
+        putstr(node.show() + " ");
+    }
+}
+
+/*测试插入节点和三种遍历二叉树的方式*/
+var nums = new BST();
+nums.insert(23);
+nums.insert(45);
+nums.insert(16);
+nums.insert(37);
+nums.insert(3);
+nums.insert(99);
+nums.insert(22);
+console.log("Inorder traversal: ");
+inOrder(nums.root);
+console.log("Preorder traversal: ");
+preOrder(nums.root);
+console.log("Postorder traversal: ");
+postOrder(nums.root);
+
+/**
+ * 查找:
+ * BST 通常有三种类型的查找:
+ *
+ * 查找最小值:
+ * 沿着 BST 的左子树挨个遍历， 直到遍历到 BST 最左边的节点即为最小值
+ *
+ * 查找最大值:
+ * 遍历右子树， 直到找到最后一个节点， 该节点上保存的值即为最大值
+ *
+ * 查找给定值:
+ * 比较该值和当前节点上的值的大小。通过比较，确定如果给定值不在当前节点，该向左遍历还是向右遍历
+ * 如果找到给定值， 该方法返回保存该值的节点； 如果没找到， 该方法返回 null
+ * */
+function getMin() {
+    var current = this.root;
+    while (!(current.left == null)) {
+        current = current.left;
+    }
+    return current.data;
+}
+
+function getMax() {
+    var current = this.root;
+    while (!(current.right == null)) {
+        current = current.right;
+    }
+    return current.data;
+}
+
+function find(data) {
+    var current = this.root;
+    while (current != null) {
+        if (current.data == data) {
+            return current;
+        }
+        else if (data < current.data) {
+            current = current.left;
+        }
+        else {
+            current = current.right;
+        }
+    }
+    return null;
+}
+
+//测试 查找最小值 最大值 特定值
+var nums = new BST();
+nums.insert(23);
+nums.insert(45);
+nums.insert(16);
+nums.insert(37);
+nums.insert(3);
+nums.insert(99);
+nums.insert(22);
+inOrder(nums.root);
+console.log("\n");
+putstr("Enter a value to search for: ");
+var value = parseInt(readline());
+// 查找方式:  树.find(节点值)
+var found = nums.find(value);
+if (found != null) {
+    console.log("Found " + value + " in the BST.");
+}
+else {
+    console.log(value + " was not found in the BST.");
+}
+
+/**
+ * 删除节点,
+ * 使用remove(data) 它会调用removeNode()
+ * 会从根节点开始查起
+ * */
+function remove(data) {
+    root = removeNode(this.root, data);
+}
+
+function removeNode(node, data) {
+    if (node == null) {
+        return null;
+    }
+    if (data == node.data) {
+// 没有子节点的节点
+        if (node.left == null && node.right == null) {
+            return null;
+        }
+        // 没有左子节点的节点
+        if (node.left == null) {
+            return node.right;
+        }
+        // 没有右子节点的节点
+        if (node.right == null) {
+            return node.left;
+        }
+        // 有两个子节点的节点
+        var tempNode = getSmallest(node.right);
+        node.data = tempNode.data;
+        node.right = removeNode(node.right, tempNode.data);
+        return node;
+    } else if (data < node.data) {
+        node.left = removeNode(node.left, data);
+        return node;
+    } else {
+        node.right = removeNode(node.right, data);
+        return node;
+    }
+}
+
+
+
+/**
+ * Created by chenhaoact on 16/8/18.
+ */
+/**
+ * 1.图
+ * 图由边的集合及顶点的集合组成
+ *
+ * 环:由指向自身的顶点组成的路径称为环， 环的长度为 0
+ * 圈:至少有一条边的路径， 且路径的第一个顶点和最后一个顶点相同
+ * 简单圈:没有重复边或重复顶点的圈
+ * 平凡圈:除了第一个和最后一个顶点以外， 路径的其他顶点有重复的圈
+ * 顶点强相连:两个顶点之间有路径， 那么这两个顶点就是强连通
+ *          如果有向图的所有的顶点都是强连通的， 那么这个有向图也是强连通的.
+ *
+ * 适用:
+ * 对交通流量建模， 顶点可以表示街道的十字路口， 边可以表示街道。
+ * 加权的边可以表示限速或者车道的数量。 判 最佳路线及最有可能堵车的街道。
+ * 任何运输系统都可以用图来建模。
+ * 航空公司可以用图来为其飞行系统建模。
+ *
+ * 包含局域网和广域网（ 如互联网） 在内的计算机网络， 同样经常用图来建模。
+ *
+ * 消费市场， 顶点可以用来表示供应商和消费者
+ *
+ * 常用于解决的问题:
+ * 查找最短路径
+ *
+ * */
+
+/**
+ * 2.Vertex 类来保存顶点和边。
+ * 这个类的作用与链表和二叉搜索树的 Node 类一样。
+ * Vertex 类有两个数据成员：
+ * label:一个用于标识顶点
+ * wasVisited:顶点是否被访问过的布尔值
+ * 将所有顶点保存到数组中， 在图类里， 可以通过它们在数组中的位置引用它们
+ * */
+function Vertex(label) {
+    this.label = label;
+}
+
+/**
+ * 3.
+ * 构建图类
+ *
+ * 表示图的边的方法
+ * 法一:邻接表(邻接表数组)。
+ * 存储 每个顶点的所有相邻顶点的列表(数组) 构成的数组， 该顶点作为索引
+ * 这样就知道了定点和哪些顶点连成边
+ *
+ * 法二:邻接矩阵。
+ * 一个二维数组， 其中的元素表示两个顶点之间是否有一条边。
+ *
+ * 下面的图类:
+ * 属性:
+ * vertices 节点数, Graph(v)传入的v是节点数
+ * edges 边数
+ * adj (邻接表数组,这里使用了法一,一个二维数组,每个节点的临界节点数组组成的数组)
+ * marked 数组,存储已访问过的顶点
+ * edgeTo 一个数组,保存从一个顶点到下一个顶点的所有边
+ * 方法:
+ * addEdge(节点1,节点2) 添加一条边
+ * showGraph() 打印所有顶点及其相邻顶点列表的方式来显示图
+ * dfs(节点) 深度优先的遍历得到该节点所有能到达的路径上的所有节点
+ * bfs(节点) 广度优先遍历 得到该节点所有能到达的路径上的所有节点
+ * */
+function Graph(v) {
+    this.vertices = v;
+    this.edges = 0;
+    this.adj = [];
+    //通过 for 循环为数组中的每个元素添加一个子数组来存储所有的相邻顶点， 并将所有元素初始化为空字符串
+    for (var i = 0; i < this.vertices; ++i) {
+        this.adj[i] = [];
+        this.adj[i].push("");
+    }
+
+    this.marked = [];
+    for (var i = 0; i < this.vertices; ++i ) {
+        this.marked[i] = false;
+    }
+    this.edgeTo = [];
+
+    this.addEdge = addEdge;
+    this.showGraph = showGraph;
+    this.dfs = dfs;
+    this.bfs = bfs;
+}
+
+/**
+ * 4.
+ * 传入顶点 A 和 B 时， 函数会先查找顶点 A 的邻接表， 将顶点 B 添加到列
+ * 表中， 然后再查找顶点 B 的邻接表， 将顶点 A 加入列表。 最后， 这个函数会将边数加 1
+ * */
+function addEdge(v, w) {
+    this.adj[v].push(w);
+    this.adj[w].push(v);
+    this.edges++;
+}
+
+/**
+ * 5.
+ * 打印所有顶点及其相邻顶点列表的方式来显示图
+ * */
+function showGraph() {
+    for (var i = 0; i < this.vertices; ++i) {
+        putstr(i + "->");
+        for (var j = 0; j < this.vertices; ++j) {
+            if (this.adj[i][j] != undefined)
+                putstr(this.adj[i][j] + ' ');
+        }
+        console.log();
+    }
+}
+
+//测试
+g = new Graph(5);
+g.addEdge(0,1);
+g.addEdge(0,2);
+g.addEdge(1,3);
+g.addEdge(2,4);
+g.showGraph();
+
+/*
+ 0 -> 1 2
+ 1 -> 0 3
+ 2 -> 0 4
+ 3 -> 1
+ 4 -> 2
+ 输出显示， 顶点 0 有到顶点 1 和顶点 2 的边； 顶点 1 有到顶点 0 和顶点 3 的边
+ * */
+
+/**
+ * 6.
+ *
+ * 深度优先搜索算法比较简单： 访问一个没有访问过的顶点， 将它标记为已访问， 再递归地
+ * 去访问在初始顶点的邻接表中其他没有访问过的顶点,如此往复， 直到没有路径为止。 这不是在搜
+ * 索特定的路径， 而是通过搜索来查看在图中有哪些路径可以选择
+ *
+ * dfs(节点): 深度优先的遍历该节点开始所有能到达的路径,并显示从该节点能到达(访问)的所有节点
+ * */
+function dfs(v) {
+    this.marked[v] = true;
+// 用于输出的 if 语句在这里不是必须的
+    if (this.adj[v] != undefined)
+        console.log("Visited vertex: " + v);
+    for (var w in this.adj[v]) {
+        if (!this.marked[w]) {
+            this.dfs(w);
+        }
+    }
+}
+
+//测试深度优先 dfs()
+g = new Graph(5);
+g.addEdge(0, 1);
+g.addEdge(0,2);
+g.addEdge(1,3);
+g.addEdge(2,4);
+g.showGraph();
+g.dfs(0);
+
+/*
+ 0 -> 1 2
+ 1 -> 0 3
+ 2 -> 0 4
+ 3 -> 1
+ 4 -> 2
+ Visited vertex: 0
+ Visited vertex: 1
+ Visited vertex: 3
+ Visited vertex: 2
+ Visited vertex: 4
+ 从节点0开始能访问到的节点有 0 1 2 3 4
+ */
+
+//测试广度优先
+g = new Graph(5);
+g.addEdge(0, 1);
+g.addEdge(0, 2);
+g.addEdge(1, 3);
+g.addEdge(2, 4);
+g.showGraph();
+g.bfs(0);
+
+/*
+ 0 -> 1 2
+ 1 -> 0 3
+ 2 -> 0 4
+ 3 -> 1
+ 4 -> 2
+ Visited vertex: 0
+ Visited vertex: 1
+ Visited vertex: 2
+ Visited vertex: 3
+ Visited vertex: 4
+ * */
